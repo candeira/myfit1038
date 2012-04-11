@@ -1,12 +1,12 @@
-application: fit-1038
-version: 2
+application: myfit1038
+version: 4
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
-- url: /stylesheets
-  static_dir: stylesheets
+- url: /static
+  static_dir: static
 
 - url: /.*
   script: fit1038.app
