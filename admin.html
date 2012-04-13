@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/static/main.css">
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+  </head>
+  <body>
+    <table>
+      <tr>
+      {% for column in columns %}
+        <th>{{ column }}</th>
+      {% endfor %}
+      </tr>
+      {% for student in students %}<tr>
+        {% for column in columns %}<td> 
+          {{ student[column] }} </td>
+        {% endfor %}</tr>
+     {% endfor %}</table>
+
+    {% for anchor, url in navbar_links.items() %}  
+      | <a href="{{ url }}">{{ anchor }}</a>
+    {% endfor %}
+
+  </body>
+</html>
+
+			
