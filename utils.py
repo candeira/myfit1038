@@ -9,7 +9,11 @@ def logged_in(admin_only=False):
         def decorated(self):
             user = users.get_current_user()
             if not user:
-                self.redirect(users.create_login_url(self.request.uri))
+                return self.redirect(users.create_login_url(self.request.uri))
+            elif admin_only:
+                if user.nickname() not in private.admins:
+                    return self.redirect('/')
+            
             return g(self)
         return decorated
     return decorator
