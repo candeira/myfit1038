@@ -1,3 +1,4 @@
+from collections import OrderedDict
 
 import gspread
 
@@ -22,7 +23,7 @@ def get_organised_data(spreadsheet=private.spreadsheet):
 
     # we have a list of lists that looks like this:
     # [[ "Name"   , "email"              , "grade_foo"  ], < keys for dictionary
-    #  [ "javier" , "candeira@gmail.com" , "10"         ], < special values
+    #  [ "javier" , "candeira@gmail.com" , "10"         ], < start of values
     #  [ "Mary"   , "mary@monash.edu"    , "9"          ]]
     #
     # and we turn it into a dict of dicts that looks like this:
@@ -32,12 +33,12 @@ def get_organised_data(spreadsheet=private.spreadsheet):
     
     wks_keys = data[0]
     del data[0]
-    students = {}
+    students = OrderedDict()
     for row in data:
-      # first, convert numericisable string values into numeric values
-      row = [numericise(v) for v in row]
-      student = dict(zip(wks_keys,row))
-      students[student["Email"]] = student
+        # first, convert numericisable string values into numeric values
+        row = [numericise(v) for v in row]
+        student = dict(zip(wks_keys,row))
+        students[student["Email"]] = student
       
     return students
     

@@ -30,23 +30,29 @@ def guestbook_key(guestbook_name=None):
 
 
 class MainPage(webapp2.RequestHandler):
+  """The student view of their grades"""
+
+  @logged_in()
   def get(self):
-    guestbook_name=self.request.get('guestbook_name')
-    greetings_query = Greeting.all().ancestor(guestbook_key(guestbook_name)).order('-date')
-    greetings = greetings_query.fetch(10)
+    user = users.get_current_user()
+    email = user.nickname()
     
-    # this too should be an utility function
-    if users.get_current_user():
-      url = users.create_logout_url(self.request.uri)
-      url_linktext = 'Logout'
-    else:
-      url = users.create_login_url(self.request.uri)
-      url_linktext = 'Login'
+    students = get_organised_data(private.spreadsheet)
+    
+    if email not in students.keys():
+      self.redirect(users.create_login_url(self.request.uri))
+    
+    grades = students[email]
+      
+    columns = ["ID", "UT1", "UT2", "UT3", "Tute 3",	"Tute 4",	"Tute 6", "Tute 8", "Tute 9", 
+               "Proposal",	"Recover",	"Presentation",	"Report",	"Final"]  
+    
+    navbar_links = self.navbar()
       
     template_values = {
-      'greetings': greetings,
-      'url': url,
-      'url_linktext': url_linktext,
+      'columns': columns,
+      'grades': grades,
+      'navbar_links': navbar_links,
     }
     
     template = jinja_environment.get_template('index.html')

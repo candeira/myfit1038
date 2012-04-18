@@ -4,21 +4,17 @@
     <link rel="shortcut icon" href="/static/favicon.ico" />
   </head>
   <body>
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author.nickname() }}</b> wrote:
-      {% else %}
-        An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
+    <table border=1><tr>
+    {% for column in columns %}<th>{{ column }}</th>{% endfor %}
+    </tr>
+    <tr>
+    {% for column in columns %}<td>{{ grades[column] }}</td>{% endfor %}
+    </tr>
+    </table>
+
+    {% for anchor, url in navbar_links.items() %}  
+      | <a href="{{ url }}">{{ anchor }}</a>
     {% endfor %}
-
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
-
-    <a href="{{ url }}">{{ url_linktext }}</a>
-
+    
   </body>
 </html>
