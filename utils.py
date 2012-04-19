@@ -31,7 +31,7 @@ def navbar(handler):
         anchor = 'Logout'
         navbar[anchor] = url
     else:
-        url = users.create_login_url(self.request.uri)
+        url = users.create_login_url(handler.request.uri)
         anchor = 'Login'
         navbar[anchor] = url
 
