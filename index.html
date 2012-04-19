@@ -4,11 +4,12 @@
     <link rel="shortcut icon" href="/static/favicon.ico" />
   </head>
   <body>
+    <h2>Welcome, Student {{ student["Last Name"] }}! Your grades for fit1038 so far:</h2>
     <table border=1><tr>
     {% for column in columns %}<th>{{ column }}</th>{% endfor %}
     </tr>
     <tr>
-    {% for column in columns %}<td>{{ grades[column] }}</td>{% endfor %}
+    {% for column in columns %}<td>{{ student[column] }}</td>{% endfor %}
     </tr>
     </table>
 

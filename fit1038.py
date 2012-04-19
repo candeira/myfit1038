@@ -30,7 +30,7 @@ class MainPage(webapp2.RequestHandler):
     if email not in students.keys():
       self.redirect(users.create_login_url(self.request.uri))
     
-    grades = students[email]
+    student = students[email]
       
     columns = ["ID", "UT1", "UT2", "UT3", "Tute 3",	"Tute 4",	"Tute 6", "Tute 8", "Tute 9", 
                "Proposal",	"Recover",	"Presentation",	"Report",	"Final"]  
@@ -39,7 +39,7 @@ class MainPage(webapp2.RequestHandler):
       
     template_values = {
       'columns': columns,
-      'grades': grades,
+      'student': student,
       'navbar_links': navbar_links,
     }
     
@@ -64,7 +64,8 @@ class Admin(webapp2.RequestHandler):
     
     navbar_links = navbar(self)
 
-    template_values = {"students": students.values(), "columns": columns,
+    template_values = {"students": students.values(), 
+                       "columns": columns,
                        "navbar_links": navbar_links}
       
     template = jinja_environment.get_template('admin.html')
@@ -73,4 +74,4 @@ class Admin(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/admin', Admin)],
-                              debug=True)
+                               debug=True)
