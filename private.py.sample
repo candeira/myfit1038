@@ -1,0 +1,4 @@
+username = 'email_account_with_access_to_your_spreadsheet'
+password = 'asteriskasteriskasterisk'
+spreadsheet = 'whatever_your_spreadsheet_is_called'
+admins = 'tutor@university.edu', 'lecturer@university.edu', vicechancellor@university.edu
