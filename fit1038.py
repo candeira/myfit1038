@@ -28,7 +28,7 @@ class MainPage(webapp2.RequestHandler):
     students = get_organised_data(private.spreadsheet)
     
     if email not in students.keys():
-      self.redirect(users.create_login_url(self.request.uri))
+      return self.redirect(users.create_login_url(self.request.uri))
     
     student = students[email]
       
