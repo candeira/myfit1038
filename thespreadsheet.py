@@ -3,7 +3,7 @@ from collections import OrderedDict
 import gspread
 
 import private
-from utils import numericise
+from utils import dictify
 
 
 def get_organised_data(spreadsheet=private.spreadsheet):
@@ -17,30 +17,14 @@ def get_organised_data(spreadsheet=private.spreadsheet):
     True
 
     """
-    gc = gspread.login(private.username, private.password)
-    wks = gc.open(spreadsheet).sheet1
-    data = wks.get_all_values()
+    try:
+        from Fit1038_Marking_2012 import data
+    except ImportError:
+        gc = gspread.login(private.username, private.password)
+        wks = gc.open(spreadsheet).sheet1
+        data = wks.get_all_values()
 
-    # we have a list of lists that looks like this:
-    # [[ "Name"   , "email"              , "grade_foo"  ], < keys for dictionary
-    #  [ "javier" , "candeira@gmail.com" , "10"         ], < start of values
-    #  [ "Mary"   , "mary@monash.edu"    , "9"          ]]
-    #
-    # and we turn it into a dict of dicts that looks like this:
-    # { "candeira@gmail.com": {"Name": "javier", "email": "candeira@gmail.com", etc... }
-    #   "mary@monash.edu"   : {"Name": "Mary"  , "email": "mary@monash.edu", etc... } 
-    #    etc... }
-    
-    wks_keys = data[0]
-    del data[0]
-    students = OrderedDict()
-    for row in data:
-        # first, convert numericisable string values into numeric values
-        row = [numericise(v) for v in row]
-        student = dict(zip(wks_keys,row))
-        students[student["Email"]] = student
-      
-    return students
+    return dictify(data)
     
 if __name__ == '__main__':
     import doctest

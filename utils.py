@@ -37,7 +37,7 @@ def navbar(handler):
 
     return navbar
 
-def numericise(value):
+def numericise(value, blank2zero=True):
     """
     >>> numericise("faa")
     'faa'
@@ -47,6 +47,8 @@ def numericise(value):
     3.1
     >>> numericise("")
     0
+    >>> numericise("", blank2zero=False)
+    ''
     """
 
     try:
@@ -55,9 +57,29 @@ def numericise(value):
         try: 
             value = float(value)
         except:
-            if value == "": 
+            if value == "" and blank2zero == True: 
                 value = 0
     return value
+
+def dictify(data, blanks2zeros=True):
+    # we have a list of lists that looks like this:
+    # [[ "Name"   , "email"              , "grade_foo"  ], < keys for dictionary
+    #  [ "javier" , "candeira@gmail.com" , "10"         ], < start of values
+    #  [ "Mary"   , "mary@monash.edu"    , "9"          ]]
+    #
+    # and we turn it into a dict of dicts that looks like this:
+    # { "candeira@gmail.com": {"Name": "javier", "email": "candeira@gmail.com", etc... }
+    #   "mary@monash.edu"   : {"Name": "Mary"  , "email": "mary@monash.edu", etc... } 
+    #    etc... }
+    
+    wks_keys = data[0]
+    dictified = OrderedDict()
+    for row in data[1:]:
+        # first, convert numericisable string values into numeric values
+        row = [numericise(v, blanks2zeros) for v in row]
+        student = dict(zip(wks_keys,row))
+        dictified[student["Email"]] = student
+    return dictified
 
 
 if __name__ == '__main__':
