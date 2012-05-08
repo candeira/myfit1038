@@ -12,7 +12,7 @@ import gspread
 
 import private
 from thespreadsheet import get_organised_data
-from utils import logged_in, navbar
+from utils import logged_in, navbar, numericise
 
 jinja_environment = jinja2.Environment(
   loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -31,16 +31,34 @@ class MainPage(webapp2.RequestHandler):
       return self.redirect(users.create_logout_url(self.request.uri))
     
     student = students[email]
-      
-    columns = ["ID", "UT1", "UT2", "UT3", "Tute 3",	"Tute 4",	"Tute 6", "Tute 8", "Tute 9", 
-               "Proposal",	"Recover",	"Presentation",	"Report",	"Final"]  
+    # fake student candeira holds the max grades for the whole unit
+    # fake student campbell holds the max grades for assessments up to the current date
+    max_grade = students['candeira']
+    max_so_far = students['campbell.wilson@monash.edu']
+
+    def consolidate(student):
+        """Commodity function just for the side effects"""
+        student['Tutorials'] = sum(student[tute] for tute in ["Tute 3", "Tute 4", "Tute 6", "Tute 8", "Tute 9"])
+        student['Proposal'] += student['Recover']
+        return
+
+    consolidate(student)
+    consolidate(max_grade)
+    consolidate(max_so_far)  
+    del max_so_far['Recover']
+
+    available = max_grade['Final'] - max_so_far['Final']
+    
+    columns = ["UT1", "UT2", "UT3", "Tutorials", "Proposal", "Presentation",	"Report",	"Final"]  
     
     navbar_links = navbar(self)
       
     template_values = {
       'columns': columns,
       'student': student,
+      'max_grade': max_grade,
       'navbar_links': navbar_links,
+      'available' : available,
     }
     
     template = jinja_environment.get_template('index.html')
