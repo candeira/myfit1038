@@ -39,13 +39,11 @@ class MainPage(webapp2.RequestHandler):
     def consolidate(student):
         """Commodity function just for the side effects"""
         student['Tutorials'] = sum(student[tute] for tute in ["Tute 3", "Tute 4", "Tute 6", "Tute 8", "Tute 9"])
-        student['Proposal'] += student['Recover']
         return
 
     consolidate(student)
     consolidate(max_grade)
     consolidate(max_so_far)  
-    del max_so_far['Recover']
 
     available = max_grade['Final'] - max_so_far['Final']
     
@@ -78,7 +76,7 @@ class Admin(webapp2.RequestHandler):
     
     columns = ["ID", "Last Name", "First Name",	"Project Group", "UT1", "UT2", 
                "UT3", "Tute 3",	"Tute 4",	"Tute 6", "Tute 8", "Tute 9", 
-               "Proposal",	"Recover",	"Presentation",	"Report",	"Final"]
+               "Proposal",	"Presentation",	"Report",	"Final"]
     
     navbar_links = navbar(self)
 

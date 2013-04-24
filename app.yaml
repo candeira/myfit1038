@@ -1,5 +1,5 @@
 application: myfit1038
-version: 5
+version: 6
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -10,7 +10,7 @@ handlers:
 
 - url: /.*
   script: fit1038.app
-  
+
 libraries:
 - name: jinja2
   version: latest

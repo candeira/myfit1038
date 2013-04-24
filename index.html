@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Examples · Twitter Bootstrap</title>
+    <title>My FIT1038 Grades, a GAE application.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The marks for my fit1038 students">
     <meta name="author" content="Javier Candeira">
@@ -56,14 +56,15 @@
     <header class="jumbotron page-header" id="welcome">
       <h1>Hi, {{ student["Tru Name"] }}!</h1>
       <p class="lead">
-        Welcome to <a href="http://github.com/candeira/myfit1038">MyFit1038 app</a>, where you can check your marks for this unit so far.{% if available %} Remember there are still {{ available }} points up for grabs if you do well in the remaining assesments.{% endif %}</p>
+        Welcome to <a href="http://github.com/candeira/myfit1038">MyFit1038 app</a>, where you can check your marks for this unit so far.<br/>{% if available %}Remember there are still {{ available }} points up for grabs if you do well in the rest of the assessments.{% endif %}</p>
     </header>
 
     <div class='row'>
     <div class='span4'>
       <ul>
         <li>The 'tutorials' column includes all five marked tutes (weeks 3, 4, 6, 8 and 9).</li>
-        <li>The 'proposal' column includes up to five extra recovery points if your report includes the corrections I asked for in my feedback.</li>
+        <li>The 'presentation' column includes up to five points for the project video.</li>
+        <li>This code was demonstrated live to FIT1038 students!!!</li>
       </ul>
     </div>
     {% for column in columns %}
@@ -81,7 +82,7 @@
       ================================================== -->
       <footer class="footer">
         <p>Designed and built with <a href="http://twitter.github.com/bootstrap/" target="_blank">twitter bootstrap</a> and love by <a href="http://hiperactivo.com/" target="_blank">your humble lecturer</a>.</p>
-        <p>Code belongs to <a href="http://monash.edu/" target="_blank">Monash</a>, but you are welcome, nay, invited, to <a href="http://github.com/candeira/myfit1038/">take a peek</a>.</p>
+        <p>Code belongs to <a href="http://monash.edu/" target="_blank">Monash</a>, but you are welcome, or better yet, invited, to <a href="http://github.com/candeira/myfit1038/">take a peek</a>.</p>
         </footer>
 
     </div><!-- /container -->
