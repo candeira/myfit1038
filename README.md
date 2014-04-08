@@ -18,14 +18,14 @@ How to install and run
 - Fork this project and clone it from your own fork. You are going to have to modify it anyway. [Instructions at github][fac].
 - Copy the gspread directory into your myfit1038 directory. GAE requires that you upload any non-standard and non-google provided library that you use.
 - Configure the app by renaming "private.py.sample" to "private.py" and writing your own google docs account, password, spreadsheet name and list of emails of administrators.
-- Here is a [sample spreadsheet][sample]. Copy it into your own Google Docs account, and you can fill it with random values to start with. Use your fellow student's emails, play around with the grades!
+- Here is a [sample spreadsheet][sample]. Copy it into your own Google Docs account, and you can fill it with random values to start with. Use your fellow student's emails, play around with the grades! Note that the "candeira" student has to have full marks, we use it to know the top mark for each assessment.
 
 You can run the site locally, on your own computer, using the gae dev_appserver.py script.
 
 If you want to run it on Google App Engine for everyone to see, you need to follow a couple more steps or three:
 
 - Register for a [Google App Engine][gae] account if necessary, and create a new application with whatever name you want.
-- In the "Authentication Options", you can have "Open to all Google accounts" or "Open to all users with an OpenID provider". The app does its own access authorisation based on the emails listed in the spreadsheet. The "Storage Options" are irrelevant, since we 
+- In the "Authentication Options", you can have "Open to all Google accounts" or "Open to all users with an OpenID provider". The app does its own access authorisation based on the emails listed in the spreadsheet. The "Storage Options" are irrelevant, since we are storing our data in a Google Docs spreadsheet.
 - Now you can upload it to GAE using appcfg.py. If you don't know how, you better [follow the GAE tutorial][tutorial].
 
 

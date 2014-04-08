@@ -8,9 +8,9 @@
     <meta name="author" content="Javier Candeira">
 
     <!-- Les styles -->
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
-    <link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap-responsive.css">
+    <link href="/static/docs.css" rel="stylesheet">
      <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -62,7 +62,7 @@
     <div class='row'>
     <div class='span4'>
       <ul>
-        <li>The 'tutorials' column includes all five marked tutes (weeks 3, 4, 6, 8 and 9).</li>
+        <li>The 'tutorials' column includes all five marked tutes (weeks 3, 4, 6, 7 and 9).</li>
         <li>The 'presentation' column includes up to five points for the project video.</li>
         <li>This code was demonstrated live to FIT1038 students!!!</li>
       </ul>
@@ -70,7 +70,7 @@
     {% for column in columns %}
     <div class='span1'>
       <h5>{{ column }}:</h5>
-      <h1>{{ student[column] }}</h1>
+      <h1>{{ "%.1f" % student[column] }}</h1>
       out of a max of:
       <h2>{{ max_grade[column]}}</h2>
     </div>
